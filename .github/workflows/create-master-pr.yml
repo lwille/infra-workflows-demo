@@ -9,7 +9,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2 
       with:
-        ref: stage
+        ref: master 
+    - name: Reset PR branch
+      run: |
+        git fetch origin stage:stage
+        git reset --hard stage
     - uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
