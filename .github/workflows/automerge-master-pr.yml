@@ -1,20 +1,23 @@
 name: Automerge Pull Requests to Master when labeled appropriately
 on:
-  pull_request: {}
-  pull_request_review:
+  pull_request:
+    branches: [stage]
     types:
-      - submitted
-  checK_suite:
-    types:
-      - completed
-  status: {}
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
-    - name: automerge
-      uses: "pascalgn/automerge-action@v0.8.0"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        MERGE_METHOD: merge
-        MERGE_LABELS: "!no-merge" # It's enough to submit 
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.8.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: merge
+          MERGE_LABELS: "good-to-merge"
