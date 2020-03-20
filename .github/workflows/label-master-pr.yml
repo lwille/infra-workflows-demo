@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Add good-to-merge label
         uses: pullreminders/label-when-approved-action@master
-        if: github.base_ref == "master" 
+        if: github.base_ref == 'master'
         env:
           APPROVALS: "1"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
