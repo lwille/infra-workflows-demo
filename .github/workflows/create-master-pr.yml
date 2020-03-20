@@ -1,0 +1,22 @@
+name: Create Pull Request on Master when pushing to Stagethub 
+on:
+  push:
+    branches:
+    - stage
+jobs:
+  create_master_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2 
+      with:
+        ref: stage
+    - uses: peter-evans/create-pull-request@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        base: master
+        title: Update Master
+        body: |-
+          # Update master branch
+          this PR was automatically created and will be merged automatically if the following is fulfilled: 
+          - checks have finished successfully
+          - someone gave a positive review 
