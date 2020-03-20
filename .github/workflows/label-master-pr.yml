@@ -1,7 +1,5 @@
 name: Label Pull Requests to Master after review was submitted
-on:
-  pull_request_review:
-    branches: [stage]
+on: [pull_request_review]
 jobs:
   labelWhenApproved:
     name: Add good-to-merge label when approved
