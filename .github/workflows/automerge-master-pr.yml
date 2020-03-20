@@ -1,7 +1,7 @@
 name: Check if automerge is possible
 on:
   pull_request:
-    branches: [stage]
+    branches: [master]
     types:
       - labeled
       - unlabeled
