@@ -5,8 +5,8 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     steps:
-    - name: Wait a minute 
-      run: |
-        echo waiting a few seconds
-        sleep 6 
-        echo done waiting, have a good day
+      - name: Wait a minute
+        run: |
+          echo waiting a few seconds
+          sleep 6 
+          echo done waiting, have a good day

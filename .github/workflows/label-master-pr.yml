@@ -1,0 +1,16 @@
+name: Label Pull Requests to Master after review was submitted
+on:
+  pull_request_review:
+    branches: [stage]
+jobs:
+  labelWhenApproved:
+    name: Add good-to-merge label when approved
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add good-to-merge label
+        uses: pullreminders/label-when-approved-action@master
+        if: ${{ github.base_ref }} == "master"
+        env:
+          APPROVALS: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADD_LABEL: "good-to-merge"
