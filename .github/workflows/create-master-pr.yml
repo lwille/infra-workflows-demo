@@ -24,3 +24,4 @@ jobs:
           this PR was automatically created and will be merged automatically if the following is fulfilled: 
           - checks have finished successfully
           - someone gave a positive review 
+          - a `no-merge` label is not present on the PR
