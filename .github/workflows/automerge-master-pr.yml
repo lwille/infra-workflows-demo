@@ -1,4 +1,4 @@
-name: Automerge Pull Requests to Master when labeled appropriately
+name: Check if automerge is possible
 on:
   pull_request:
     branches: [stage]
