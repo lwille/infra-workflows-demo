@@ -1,23 +1,14 @@
-name: Check if automerge is possible
-on:
-  pull_request:
-    branches: [master]
-    types:
-      - labeled
-      - unlabeled
-      - synchronize
-      - opened
-      - edited
-      - ready_for_review
-      - reopened
-      - unlocked
+name: automerge if possible
+on: [pull_request_review]
+
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
       - name: automerge
         uses: "pascalgn/automerge-action@v0.8.0"
+        if: github.event.pull_request.base.ref == 'master'
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_METHOD: merge
-          MERGE_LABELS: "good-to-merge"
+          MERGE_LABELS: "!no-merge"
