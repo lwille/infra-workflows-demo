@@ -1,7 +1,5 @@
 name: Demo building of Pull Requests from external contributors
-on:
-  push:
-    branches-ignore: [master]
+on: [pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
