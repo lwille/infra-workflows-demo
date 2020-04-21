@@ -1,0 +1,11 @@
+name: Demo building of Pull Requests from external contributors
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |-
+        echo "Running tests"...
+        sleep 10
+        echo "Done"
+    
