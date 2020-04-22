@@ -4,8 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: |-
-        echo "Running tests"...
-        sleep 10
-        echo "Done"
-    
+      - run: |-
+          echo "Running tests"...
+          sleep 10
+          echo "Done"
