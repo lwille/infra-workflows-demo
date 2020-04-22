@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: cat $GITHUB_EVENT_PATH
-    - run: echo $GITHUB_REF
     - name: automerge
       uses: "pascalgn/automerge-action@v0.8.0"
-      if: github.event.pull_request.base.ref == 'master'
+      if: github.event.pull_request.base.ref == 'master' && github.event.pull_request.head.ref == 'update-master-from-stage'
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         MERGE_METHOD: merge
