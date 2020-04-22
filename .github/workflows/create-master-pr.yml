@@ -1,32 +1,34 @@
 ---
 ##
-# The logic of `create-pull-request` seems a bit counterintuitive, as we "just want to merge stage into master".
+# The logic of `create-pull-request` seems a bit counter-intuitive,
+#   as we "just want to merge stage into master".
 # However, the action expects you to checkout the base branch and "make some changes".
-# In our case, "making changes" will be fetching `stage` and resetting the local branch to it, so `create-pull-request` can pick up the changes.
+# In our case, "making changes" will be fetching `stage` and resetting the local branch to it,
+#   so `create-pull-request` can pick up the changes.
 ##
 name: Create Pull Request on Master when pushing to Stage
-on:
+on:                                          # yamllint disable-line rule:truthy
   push:
     branches: [stage]
 jobs:
   create_master_pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout base branch
-        with:
-          ref: master
-      - name: Fetch changes from stage
-        run: git fetch origin stage && git reset --hard stage
-      - uses: peter-evans/create-pull-request@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: Update Master
-          branch: update-master-from-stage
-          reviewers: ${{ github.event.pusher.name }}
-          body: |-
-            # Update master branch
-            this PR was automatically created and will be merged automatically if the following is fulfilled:
-            - checks have finished successfully
-            - someone gave a positive review
-            - a `no-merge` label is not present on the PR
+    - name: Checkout base branch
+      uses: actions/checkout@v2
+      with:
+        ref: master
+    - name: Fetch changes from stage
+      run: git fetch && git reset --hard origin/stage
+    - uses: peter-evans/create-pull-request@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: Update Master
+        branch: update-master-from-stage
+        reviewers: ${{ github.event.pusher.name }}
+        body: |-
+          # Update master branch
+          this PR was automatically created and will be merged automatically if the following is fulfilled:
+          - checks have finished successfully
+          - someone gave a positive review
+          - a `no-merge` label is not present on the PR
