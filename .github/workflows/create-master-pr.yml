@@ -1,9 +1,8 @@
 ---
 ##
-# peter-evans/create-pull-request expects the base to be the branch checked out by the checkout action.
-# actions/checkout by default checks out the branch being pushed, but in this case the base.
-# So if we check out master and then reset it to stage to pull in the latest changes, to be then picked up by create-pull-request.
-#
+# The logic of `create-pull-request` seems a bit counterintuitive, as we "just want to merge stage into master".
+# However, the action expects you to checkout the base branch and "make some changes".
+# In our case, "making changes" will be fetching `stage` and resetting the local branch to it, so `create-pull-request` can pick up the changes.
 ##
 name: Create Pull Request on Master when pushing to Stage
 on:
@@ -15,12 +14,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout base branch
-    - name: Fetch master branch 
-      run: git fetch origin master:master
+      with:
+        ref: master
+    - name: Fetch changes from stage
+      run: git fetch origin stage && git reset --hard stage
     - uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        base: master
         title: Update Master
         branch: update-master-from-stage
         reviewers: ${{ github.event.pusher.name }}
