@@ -1,14 +1,18 @@
-name: automerge if possible
-on: [pull_request_review]
+---
+name: Merge Pull Request to Master if possible
+on:                                          # yamllint disable-line rule:truthy
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
-      - name: automerge
-        uses: "pascalgn/automerge-action@v0.8.0"
-        if: github.event.pull_request.base.ref == 'master'
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_METHOD: merge
-          MERGE_LABELS: "!no-merge"
+    - run: cat $GITHUB_EVENT_PATH
+    - name: automerge
+      uses: "pascalgn/automerge-action@v0.8.0"
+      if: github.event.pull_request.base.ref == 'master'
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        MERGE_METHOD: merge
+        MERGE_LABELS: "!no-merge"
