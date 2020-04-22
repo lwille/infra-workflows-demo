@@ -20,6 +20,7 @@ jobs:
     - uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        base: master
         title: Update Master
         branch: update-master-from-stage
         reviewers: ${{ github.event.push.pusher.name }}
