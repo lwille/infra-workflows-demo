@@ -15,9 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout base branch
-    - name: Pull in changes from `stage`
-      run: |-
-        git fetch origin master:master
+    - name: Fetch master branch 
+      run: git fetch origin master:master
     - uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
